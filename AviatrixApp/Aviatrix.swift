@@ -10,6 +10,8 @@ import Foundation
 
 class Aviatrix {
     
+    var currentLocation = "St.Louis"
+    
     //saying who created this plane and airline
     //I have a property called author
     var author = ""
@@ -20,25 +22,48 @@ class Aviatrix {
     //this function should tell us if the airplane is running or not
     var running = false
     
+    //saying how much the airplane travaled
+    var distanceTraveled = 0
+    
+    var maxFuel = 5000
+    
+    var fuelLevel = 5000.0
+    
     //starts the airplane, so it means it's running
     func start() -> Bool { //Bool stands for Boolean which means true or false
         running = true
         return running
     }
     
-    func refuel() {
+    func refuel() -> {
+        let gallonsNeeded =
+        
         
     }
     
     func flyTo(destination : String) {
+        distanceTraveled += distanceTo(target: destination, current: currentLocation)
+        currentLocation = destination
         
     }
     
-    func distanceTo(target : String) {
-    
+    //I want to tell every plane that I create from this class how far places are
+    //I need the place and distance
+    func distanceTo(target : String, current: String) -> Int {
+        //I need to get information from the aviatrixdata file
+        let data = AviatrixData()
+        return data.knownDistances[current]![target]!
+        //swift uses ! to mean not, but it also uses it to say that I know there is definitely data here
     }
     
+    //I want to tell every plane that I create from the aviatrix class where they can fly
     func knownDestinations() -> [String] {
-       return ["St. Louis"]
+//        //change this function so I can return all the options for destinations
+//        //I need to get information from the aviatrixdata.swift file
+//        let data = AviatrixData()
+//        //I called the aviatrixdata class
+//        return Array(data.knownDistances.keys)
+//        //I stored all of the keys or destinations in an array
+        return ["St. Louis", "Phoenix", "Denver", "SLC"]
     }
 }

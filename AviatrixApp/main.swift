@@ -11,22 +11,23 @@ import Foundation
 func gauges(myPlane : Aviatrix) {
     print("Reading the gauges...")
     print(" ")
-//    print("| Running:  | ✅")
-//    print("| Location:  | \(myPlane.location)")
-//    print("| Distance:  | \(myPlane.distanceTraveled) miles")
+    print("| Running:  | ✅")
+    print("| Location:  | \(myPlane.currentLocation)")
+    print("| Distance:  | \(myPlane.distanceTraveled) miles")
 //    print("| Fuel:      | \(myPlane.fuelLevel) gallons")
 //    print("| Max Fuel:  | \(myPlane.maxFuel) gallons")
 //    print("| MPG:       | \(myPlane.milesPerGallon)")
 //    print("| Fuel Bill: | \(myPlane.fuelCost)")
 }
 
+//this function asks where to fly to
 func fly(myPlane : Aviatrix) {
     print("Where would you like to fly to? ")
     print(" ")
     let destinations = myPlane.knownDestinations()
-    
+    //calling the aviatrix class and using the aviatrix function knownDestinations
     for (index, city) in destinations.enumerated() {
-        let distance = myPlane.distanceTo(target: city)
+        let distance = myPlane.distanceTo(target: city, current: myPlane.currentLocation)
         print("\(index): \(city), \(distance) miles")
     }
     
@@ -41,7 +42,7 @@ func fly(myPlane : Aviatrix) {
         
         if fuelCheck(myPlane: myPlane, destination : desiredLocation) {
             myPlane.flyTo(destination: desiredLocation)
-            print("🛬 You've arrived in _________!")
+            print("🛬 You've arrived in \(myPlane.currentLocation)!")
             gauges(myPlane: myPlane)
         }
     }
@@ -52,11 +53,12 @@ func fly(myPlane : Aviatrix) {
 }
 
 func refuel(myPlane : Aviatrix) {
-    let refuelData = myPlane.refuel()
+    _ = myPlane.refuel()
+    let data = AviatrixData().fuelPrices
     
     print("Refueling...")
-    print("⛽ Here in _________, jet fuel costs _________")
-    print("⛽ You refueled _________ gallons totaling _________")
+    print("⛽ Here in \(myPlane.currentLocation), jet fuel costs $\(data[myPlane.currentLocation])!")
+    print("⛽ You refueled \(myPlane.refuel()) gallons totaling $\(myPlane.fuelCost).")
 }
 
 func fuelCheck(myPlane : Aviatrix, destination : String) -> Bool {
@@ -79,7 +81,7 @@ var plane = Aviatrix(myAuthor: "KWK Portland")
 print("Welcome to the Aviatrix Flight System by \(plane.author)")
 plane.start()
 
-print("You're currently in _________")
+print("You're currently in \(plane.currentLocation)")
 
 var command = ""
 
