@@ -14,7 +14,7 @@ class Aviatrix {
     
     //saying who created this plane and airline
     //I have a property called author
-    var author = ""
+    var author : String
     init(myAuthor: String){
         author = myAuthor
     }
@@ -29,14 +29,16 @@ class Aviatrix {
     
     var fuelLevel = 5000.0
     
+    var milesPerGallon = 0.4
+    
     //starts the airplane, so it means it's running
     func start() -> Bool { //Bool stands for Boolean which means true or false
         running = true
         return running
     }
     
-    func refuel() -> {
-        let gallonsNeeded =
+    func refuel() -> Double {
+        return 0.0
         
         
     }
@@ -58,12 +60,11 @@ class Aviatrix {
     
     //I want to tell every plane that I create from the aviatrix class where they can fly
     func knownDestinations() -> [String] {
-//        //change this function so I can return all the options for destinations
-//        //I need to get information from the aviatrixdata.swift file
-//        let data = AviatrixData()
-//        //I called the aviatrixdata class
-//        return Array(data.knownDistances.keys)
-//        //I stored all of the keys or destinations in an array
-        return ["St. Louis", "Phoenix", "Denver", "SLC"]
+        //change this function so I can return all the options for destinations
+        //I need to get information from the aviatrixdata.swift file
+        let data = AviatrixData()
+        //I called the aviatrixdata class
+        return Array(data.knownDistances.keys)
+        //I stored all of the keys or destinations in an array
     }
 }
