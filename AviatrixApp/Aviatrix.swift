@@ -31,6 +31,8 @@ class Aviatrix {
     
     var milesPerGallon = 0.4
     
+    var fuelCost = 0.0
+    
     //starts the airplane, so it means it's running
     func start() -> Bool { //Bool stands for Boolean which means true or false
         running = true
@@ -38,9 +40,11 @@ class Aviatrix {
     }
     
     func refuel() -> Double {
-        return 0.0
-        
-        
+        let gallonsNeeded = Double(maxFuel) - fuelLevel
+        let data = AviatrixData()
+        fuelCost += gallonsNeeded * data.fuelPrices[currentLocation]!
+        fuelLevel = 5000.0
+        return gallonsNeeded
     }
     
     func flyTo(destination : String) {
@@ -54,8 +58,7 @@ class Aviatrix {
     func distanceTo(target : String, current: String) -> Int {
         //I need to get information from the aviatrixdata file
         let data = AviatrixData()
-        return data.knownDistances[current]![target]!
-        //swift uses ! to mean not, but it also uses it to say that I know there is definitely data here
+        return data.knownDistances[current]![target]!        //swift uses ! to mean not, but it also uses it to say that I know there is definitely data here
     }
     
     //I want to tell every plane that I create from the aviatrix class where they can fly
